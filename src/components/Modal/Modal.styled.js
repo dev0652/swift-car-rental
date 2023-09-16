@@ -181,6 +181,7 @@ export const Heading = styled.h3`
   line-height: 142.857%;
 `;
 
-export const Button = styled(BaseButton)`
+export const RentMeLink = styled(BaseButton)`
   align-self: flex-start;
+  text-decoration: none;
 `;

@@ -17,6 +17,7 @@ export default defineConfig(({ command }) => {
         styles: '/src/styles',
         images: '/src/images',
         assets: '/src/assets',
+        data: '/src/data',
       },
     },
     plugins: [react()],

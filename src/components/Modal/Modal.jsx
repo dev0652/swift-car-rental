@@ -11,7 +11,6 @@ import {
   Meta,
   Thumbnail,
   Tag,
-  Button,
   CloseButton,
   Overlay,
   ModalContent,
@@ -24,9 +23,11 @@ import {
   ConditionsList,
   ConditionTag,
   Value,
+  RentMeLink,
 } from './Modal.styled';
 
 import { RemoveIcon } from 'components/icons/RemoveIcon';
+import { phoneNumber } from 'data/phone';
 
 // #######################################
 
@@ -155,9 +156,9 @@ export default function Modal({ onClose, car }) {
               <Conditions data={conditions} />
             </Section>
 
-            <Button type="button" onClick={() => alert('Call me')}>
+            <RentMeLink as="a" href={`tel:${phoneNumber}`}>
               Rent this car
-            </Button>
+            </RentMeLink>
           </Group>
         </CardContent>
       </ModalContent>

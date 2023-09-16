@@ -70,6 +70,13 @@ export const Caption = styled.div`
   margin-bottom: 8px;
 `;
 
+export const MakeModelYear = styled.div`
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
 export const Accented = styled.span`
   color: ${colors.accent};
 `;

@@ -10,6 +10,7 @@ import {
   Button,
   Accented,
   FavoriteButton,
+  MakeModelYear,
 } from './Card.styled';
 
 import { HeartIcon } from 'components/icons/HeartIcon';
@@ -72,9 +73,9 @@ export const Card = ({ car }) => {
         </Thumbnail>
 
         <Caption>
-          <div>
+          <MakeModelYear>
             {make} {accentedModel}, {year}
-          </div>
+          </MakeModelYear>
 
           <div>{rentalPrice}</div>
         </Caption>
