@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const HeartIcon = ({ width, height, fill, stroke }) => {
+export const HeartIcon = ({ width, height, fill, stroke, title }) => {
   return (
     <svg
       version="1.1"
@@ -9,7 +9,7 @@ export const HeartIcon = ({ width, height, fill, stroke }) => {
       height={height}
       viewBox="0 0 32 32"
     >
-      <title>heart</title>
+      <title>{title}</title>
       <path
         fill={fill}
         stroke={stroke}
@@ -28,4 +28,5 @@ HeartIcon.propTypes = {
   height: PropTypes.number,
   fill: PropTypes.string,
   stroke: PropTypes.string,
+  title: PropTypes.string,
 };

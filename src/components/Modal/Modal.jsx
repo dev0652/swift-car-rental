@@ -89,8 +89,8 @@ export default function Modal({ onClose, car }) {
 
     const conditions = array.map((el) => {
       if (el.includes(':')) {
-        const arr = el.split(': ');
-        return { [arr[0]]: arr[1] };
+        const arr = [el.split(': ')];
+        return Object.fromEntries(arr);
       }
 
       return { [el]: '' };

@@ -1,38 +1,61 @@
 // import { Helmet } from 'react-helmet-async';
 import { Card } from 'components/Card';
-import { CardList } from './Catalog.styled';
-import { useSearchParams } from 'react-router-dom';
+import { CardList, LoadMoreButton, LoadMoreWrapper } from './Catalog.styled';
+import { useLoaderData } from 'react-router-dom';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FilterForm } from 'components/FilterForm/FilterForm';
-import { BaseButton } from 'styles/buttons';
-import { fetchCars } from 'services/api';
+import { fetchCarsByPage, fetchFilteredCars } from 'services/api';
+
+import storage from 'services/storage';
+
+// *************************************************
+
+// export async function loader() {
+//   const response = await fetchCarsByPage();
+//   return { cars: response.data };
+// }
+
+// export async function loader({ request }) {
+//   const url = new URL(request.url);
+//   const q = url.searchParams.get('q');
+//   const { cars } = await fetchFilteredCars(q);
+//   return { cars, q };
+// }
+
+// *************************************************
 
 export const Catalog = () => {
-  const [results, setResults] = useState([]);
+  // const advertsCount = cars.length;
+  const advertsCount = 32;
+
+  const scrollTargetRef = useRef(null);
+
+  // const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [searchParams, setSearchParams] = useSearchParams();
 
-  const year = searchParams.get('year') ?? '';
-  const limit = 8;
+  // ******** Get cars *************************
+
+  const [page, setPage] = useState(1);
+  const [adverts, setAdverts] = useState([]);
+
+  const firstUpdate = useRef(true);
 
   useEffect(() => {
-    // if (!year) {
-    //   setResults(cars);
-    //   return;
-    // }
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
 
-    async function getResults() {
+    async function fetchCars() {
       try {
         setError(null);
         setIsLoading(true);
         // toast.remove();
-
-        const response = await fetchCars(page, limit, { year });
-
-        setResults(response.data);
+        const { data } = await fetchCarsByPage(page);
+        setAdverts((prev) => [...prev, ...data]);
+        //
       } catch ({ message }) {
         if (message !== 'canceled') {
           setError(message);
@@ -42,54 +65,82 @@ export const Catalog = () => {
       }
     }
 
-    getResults();
-  }, [page, year]);
+    fetchCars();
+  }, [page]);
+
+  // ******** Other logic ***********************
 
   // Increment page count (Load More button)
   const incrementPage = () => {
     setPage((prevState) => prevState + 1);
+
+    if (scrollTargetRef.current && !isLoading) {
+      //
+      setTimeout(() => {
+        scrollTargetRef.current.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
   };
 
-  const isThereMore = results.length > limit * page;
+  const isThereMore = advertsCount > 8 * page;
+
+  // ******** Favorites *************************
+
+  const LS_KEY = 'savedFavorites';
+  const [favorites, setFavorites] = useState(() => storage.load(LS_KEY) ?? []);
+
+  const addToFavorites = (id) => {
+    setFavorites((prevState) => [...prevState, id]);
+  };
+
+  const removeFromFavorites = (id) => {
+    setFavorites((prevState) => prevState.filter((el) => el !== id));
+  };
+
+  const isFavorite = (id) => favorites.includes(id);
+
+  const handleToggleFavorite = (id) => {
+    isFavorite(id) ? removeFromFavorites(id) : addToFavorites(id);
+  };
+
+  useEffect(() => storage.save(LS_KEY, favorites), [favorites]);
 
   return (
     <>
-      {/* <Helmet>
-        <title>Cars catalog</title>
-        <meta
-          name="description"
-          content="Browse through the cars available for rent"
-        />
-      </Helmet> */}
-
-      <FilterForm action={setSearchParams}>
-        <button type="submit">Search</button>
-      </FilterForm>
+      <FilterForm />
 
       {isLoading && <div>Loading...</div>}
       {error && <div>{error}</div>}
 
-      {results.length === 0 && !isLoading && (
-        <div>Sorry, your query returned no matches</div>
-      )}
-
-      {results.length > 0 && (
+      {advertsCount > 0 && (
         <div>
           <CardList>
-            {results.map((car) => (
+            {adverts.map((car) => (
               <li key={car.id}>
-                <Card car={car} />
+                <Card
+                  car={car}
+                  onFavCLick={handleToggleFavorite}
+                  isFavorite={isFavorite(car.id)}
+                />
               </li>
             ))}
           </CardList>
         </div>
       )}
 
-      {results.length > 0 && isThereMore && !isLoading && (
-        <BaseButton type="button" onClick={incrementPage} isLoading={isLoading}>
-          Load more
-        </BaseButton>
-      )}
+      <LoadMoreWrapper>
+        <div ref={scrollTargetRef}></div>
+
+        {adverts.length > 0 && isThereMore && (
+          <LoadMoreButton
+            type="button"
+            onClick={incrementPage}
+            disabled={isLoading}
+          >
+            Load more
+          </LoadMoreButton>
+        )}
+      </LoadMoreWrapper>
     </>
   );
 };

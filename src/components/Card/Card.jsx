@@ -9,20 +9,20 @@ import {
   Tag,
   Button,
   Accented,
-  FavoriteButton,
   MakeModelYear,
 } from './Card.styled';
 
-import { HeartIcon } from 'components/icons/HeartIcon';
 import Modal from 'components/Modal';
 import { useState } from 'react';
 
 import placeholderImage from 'assets/placeholder-image.jpg';
+import { FavoriteButton } from 'components/FavoriteButton/FavoriteButton';
 
 //
 
-export const Card = ({ car }) => {
+export const Card = ({ car, isFavorite, onFavCLick }) => {
   const {
+    id,
     year,
     make,
     model,
@@ -33,16 +33,12 @@ export const Card = ({ car }) => {
     rentalCompany,
     address,
     functionalities,
-
-    // eslint-disable-next-line no-unused-vars
-    isFavorite = false,
   } = car;
 
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
 
   const accentedModel = <Accented>{model}</Accented>;
-
   const formattedMileage = mileage.toLocaleString('en-US');
 
   const makeToLC = make.toLowerCase();
@@ -67,9 +63,10 @@ export const Card = ({ car }) => {
             alt={`${formattedMake} ${model} ${type}`}
           />
 
-          <FavoriteButton type="button">
-            <HeartIcon width={18} height={18} />
-          </FavoriteButton>
+          <FavoriteButton
+            isFavorite={isFavorite}
+            onClick={() => onFavCLick(id)}
+          />
         </Thumbnail>
 
         <Caption>
@@ -101,17 +98,20 @@ export const Card = ({ car }) => {
 };
 
 Card.propTypes = {
-  car: PropTypes.object,
+  car: PropTypes.shape({
+    id: PropTypes.number,
+    year: PropTypes.number,
+    make: PropTypes.string,
+    model: PropTypes.string,
+    type: PropTypes.string,
+    mileage: PropTypes.number,
+    photoLink: PropTypes.string,
+    rentalPrice: PropTypes.string,
+    rentalCompany: PropTypes.string,
+    address: PropTypes.string,
+    functionalities: PropTypes.array,
+  }),
 
-  year: PropTypes.string,
-  make: PropTypes.string,
-  model: PropTypes.string,
-  type: PropTypes.string,
-  mileage: PropTypes.string,
-  photoLink: PropTypes.string,
-  rentalPrice: PropTypes.string,
-  rentalCompany: PropTypes.string,
-  address: PropTypes.string,
-  functionalities: PropTypes.string,
   isFavorite: PropTypes.bool,
+  onFavCLick: PropTypes.func,
 };

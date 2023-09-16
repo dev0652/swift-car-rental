@@ -24,15 +24,5 @@ export const FilterForm = ({ action }) => {
     // e.currentTarget.reset();
   };
 
-  return (
-    <Form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        onChange={handleChange}
-        value={input}
-        placeholder="Search by year"
-      />
-      <button type="submit">Search</button>
-    </Form>
-  );
+  return <form action=""></form>;
 };
