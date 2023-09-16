@@ -16,6 +16,8 @@ import { HeartIcon } from 'components/icons/HeartIcon';
 import Modal from 'components/Modal';
 import { useState } from 'react';
 
+import placeholderImage from 'assets/placeholder-image.jpg';
+
 //
 
 export const Card = ({ car }) => {
@@ -54,7 +56,11 @@ export const Card = ({ car }) => {
       <CardContent>
         <Thumbnail>
           <Image
-            src={photoLink}
+            src={photoLink || placeholderImage}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // prevents looping
+              currentTarget.src = placeholderImage;
+            }}
             width={250}
             height={250}
             alt={`${formattedMake} ${model} ${type}`}

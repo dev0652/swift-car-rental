@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
+import placeholderImage from 'assets/placeholder-image.jpg';
+
 import {
   Caption,
   CardContent,
@@ -101,7 +103,6 @@ export default function Modal({ onClose, car }) {
   };
 
   const conditions = makeConditionsObj(rentalConditions);
-  // const conditions = rentalConditions.split('\n');
 
   return createPortal(
     <Overlay onClick={handleBackdropClick}>
@@ -113,7 +114,11 @@ export default function Modal({ onClose, car }) {
         <CardContent>
           <Thumbnail>
             <Image
-              src={photoLink}
+              src={photoLink || placeholderImage}
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = placeholderImage;
+              }}
               width={250}
               height={250}
               alt={`${formattedMake} ${model} ${type}`}
@@ -204,5 +209,3 @@ const Conditions = ({ data }) => {
 Conditions.propTypes = {
   data: PropTypes.array,
 };
-
-// {key}: <span>{obj[key]}</span>
