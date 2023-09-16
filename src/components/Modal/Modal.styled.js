@@ -37,7 +37,9 @@ export const ModalContent = styled.div`
 //   width: 274px;
 // `;
 
-export const CardContent = styled.div``;
+export const CardContent = styled.div`
+  width: 461px;
+`;
 
 export const CloseButton = styled.button`
   position: absolute;
@@ -60,7 +62,7 @@ export const CloseButton = styled.button`
 export const Thumbnail = styled.div`
   /* width: 274px; */
   width: 100%;
-  height: 268px;
+  height: 248px;
   overflow: hidden;
   border-radius: ${borderRadius.regular};
   margin-bottom: 14px;
