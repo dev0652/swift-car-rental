@@ -648,5 +648,167 @@
     "address": "321 Example Lane, Kharkiv, Ukraine",
     "rentalConditions": "Minimum age: 21\nValid driver's license\nSecurity deposit and insurance required",
     "mileage": 6234
+  },
+  {
+    "id": 1234,
+    "year": 2022,
+    "make": "Toyota",
+    "model": "Camry",
+    "type": "Sedan",
+    "photoLink": "https://media.ed.edmunds-media.com/toyota/camry-hybrid/2021/oem/2021_toyota_camry-hybrid_sedan_xse_fq_oem_1_1600.jpg",
+    "description": "The Toyota Camry is a reliable and fuel-efficient sedan known for its spacious interior and comfortable ride.",
+    "fuelConsumption": "5.7",
+    "engineSize": "2.5L 4-cylinder",
+    "accessories": [
+      "Leather seats",
+      "Touchscreen infotainment",
+      "Adaptive cruise control"
+    ],
+    "functionalities": [
+      "Front-Wheel Drive",
+      "Lane departure warning",
+      "Apple CarPlay/Android Auto"
+    ],
+    "rentalPrice": "$40",
+    "rentalCompany": "Reliable Rentals",
+    "address": "456 Shevchenka Road, Los Angeles, Ukraine",
+    "rentalConditions": "Minimum age: 25\nValid driver's license\nCredit card required",
+    "mileage": 1500
+  },
+  {
+    "id": 5678,
+    "year": 2019,
+    "make": "Honda",
+    "model": "CR-V",
+    "type": "SUV",
+    "photoLink": "https://pictures.dealer.com/a/autonationdrive/1584/1f877d1b8fac68421e0e50c19ad2cf90x.jpg",
+    "description": "The Honda CR-V is a versatile and spacious SUV with excellent fuel efficiency and a comfortable interior.",
+    "fuelConsumption": "6.2",
+    "engineSize": "1.5L 4-cylinder",
+    "accessories": [
+      "Sunroof",
+      "Leather-trimmed seats",
+      "Honda Sensing safety suite"
+    ],
+    "functionalities": [
+      "All-Wheel Drive",
+      "Blind-spot monitoring",
+      "Apple CarPlay/Android Auto"
+    ],
+    "rentalPrice": "$35",
+    "rentalCompany": "SUV Adventures",
+    "address": "89 Velyka Perspektyvna St., Kropyvnytskyi, Ukraine",
+    "rentalConditions": "Minimum age: 23\nValid driver's license\nSecurity deposit required",
+    "mileage": 3000
+  },
+  {
+    "id": 9876,
+    "year": 2020,
+    "make": "Ford",
+    "model": "Mustang",
+    "type": "Sports Car",
+    "photoLink": "https://ag-spots-2023.o.auroraobjects.eu/2023/05/05/ford-mustang-bullitt-2019-c505105052023173002_1.jpg",
+    "description": "The Ford Mustang is an American classic known for its powerful V8 engine and iconic design.",
+    "fuelConsumption": "8.5",
+    "engineSize": "5.0L V8",
+    "accessories": ["Convertible top", "Racing stripes", "Brembo brakes"],
+    "functionalities": ["Rear-Wheel Drive", "Launch control", "Track mode"],
+    "rentalPrice": "$50",
+    "rentalCompany": "Muscle Car Rentals",
+    "address": "12 Shevchenka Street, Vynnyky, Ukraine",
+    "rentalConditions": "Minimum age: 25\nValid driver's license\nSecurity deposit required",
+    "mileage": 2000
+  },
+  {
+    "id": 2468,
+    "year": 2021,
+    "make": "Tesla",
+    "model": "Model 3",
+    "type": "Electric",
+    "photoLink": "https://nextcar.ua/images/blog/477/topgear_-_tesla_-_model_3-005.jpg",
+    "description": "The Tesla Model 3 is a premium electric car known for its impressive range and cutting-edge technology.",
+    "fuelConsumption": "Electric",
+    "engineSize": "Electric motor",
+    "accessories": ["Autopilot", "Premium interior", "Large touchscreen"],
+    "functionalities": [
+      "Rear-Wheel Drive",
+      "Full self-driving capability",
+      "Supercharger network access"
+    ],
+    "rentalPrice": "$60",
+    "rentalCompany": "Electric Wheels",
+    "address": "567 Shevchenka Lane, Kharkiv, Ukraine",
+    "rentalConditions": "Minimum age: 25\nValid driver's license\nSecurity deposit required",
+    "mileage": 1000
+  },
+  {
+    "id": 1357,
+    "year": 2018,
+    "make": "BMW",
+    "model": "X5",
+    "type": "SUV",
+    "photoLink": "https://media.ed.edmunds-media.com/bmw/x5/2018/oem/2018_bmw_x5_4dr-suv_xdrive40e-iperformance_fq_oem_1_1600.jpg",
+    "description": "The BMW X5 is a luxury SUV with a powerful engine, a spacious cabin, and advanced tech features.",
+    "fuelConsumption": "7.3",
+    "engineSize": "3.0L inline-6",
+    "accessories": ["Panoramic sunroof", "Leather seats", "Gesture control"],
+    "functionalities": [
+      "All-Wheel Drive",
+      "Adaptive cruise control",
+      "Heads-up display"
+    ],
+    "rentalPrice": "$55",
+    "rentalCompany": "Luxury Rentals",
+    "address": "39 Yaroslava Mudrogo St., Bila Tserkva, Ukraine",
+    "rentalConditions": "Minimum age: 25\nValid driver's license\nCredit card required",
+    "mileage": 5000
+  },
+  {
+    "id": 3690,
+    "year": 2017,
+    "make": "Jeep",
+    "model": "Wrangler",
+    "type": "SUV",
+    "photoLink": "https://i0.wp.com/kupiiline.com/wp-content/uploads/2023/01/capture-7.jpg",
+    "description": "The Jeep Wrangler is an off-road icon known for its ruggedness and capability in challenging terrain.",
+    "fuelConsumption": "19.8",
+    "engineSize": "2.5L",
+    "accessories": ["Winch", "Extra Jerry Can", "Soft Top"],
+    "functionalities": [
+      "All-Wheel Drive",
+      "Off-road Tyres",
+      "Air Spring Suspension"
+    ],
+    "rentalPrice": "$55",
+    "rentalCompany": "Adventure Car Rentals",
+    "address": "101 Shevchenka St., Kherson, Ukraine",
+    "rentalConditions": "Minimum age: 25\nValid driver's license\nCredit card required",
+    "mileage": 7890
+  },
+  {
+    "id": 7890,
+    "year": 2023,
+    "make": "Audi",
+    "model": "A4",
+    "type": "Sedan",
+    "photoLink": "https://menadzerfloty.pl/wp-content/uploads/2020/05/audi-a4-e.jpg",
+    "description": "The Audi A4 is a luxurious and sporty sedan that combines elegant design with high-performance capabilities.",
+    "fuelConsumption": "7.2",
+    "engineSize": "2.0L 4-cylinder",
+    "accessories": [
+      "Leather seats",
+      "Virtual cockpit",
+      "Bang & Olufsen sound system"
+    ],
+    "functionalities": [
+      "All-Wheel Drive",
+      "Adaptive cruise control",
+      "Virtual assistant"
+    ],
+    "rentalPrice": "$45",
+    "rentalCompany": "Luxury Auto Rentals",
+    "address": "78 Heroiv Azovstali St., Lutsk, Ukraine",
+    "rentalConditions": "Minimum age: 25\nValid driver's license\nCredit card required",
+    "mileage": 1200
   }
 ]
