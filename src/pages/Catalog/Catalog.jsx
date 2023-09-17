@@ -29,10 +29,10 @@ export const Catalog = () => {
 
   // Get unfiltered adverts by page
   useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
+    // if (firstUpdate.current) {
+    //   firstUpdate.current = false;
+    //   return;
+    // }
 
     // if (searchParams) setAdverts([]);
     // if (page > 1 && searchParams) setPage(1);
