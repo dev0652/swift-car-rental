@@ -17,9 +17,7 @@ import {
 
 // *************************************************
 
-export const FilterForm = (props) => {
-  const { setSearchParams } = props;
-
+export const FilterForm = ({ setSearchParams }) => {
   const [make, setMake] = useState('');
   const [price, setPrice] = useState('');
   const [from, setFrom] = useState('');
@@ -29,12 +27,6 @@ export const FilterForm = (props) => {
     const { name, value } = event.target;
 
     switch (name) {
-      case 'make':
-        setMake(value);
-        break;
-      case 'price':
-        setPrice(value);
-        break;
       case 'from':
         setFrom(value);
         break;
@@ -48,8 +40,7 @@ export const FilterForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setSearchParams({ make });
-    setMake('');
+    setSearchParams({ make, price, from, to });
   };
 
   return (
@@ -58,10 +49,10 @@ export const FilterForm = (props) => {
         <FieldLabelGroup>
           <Label htmlFor="make">Car brand </Label>
           <Select
-            name="make" // used to serialize form (i.e., goes to URL search params)
+            name="make"
             id="make"
             aria-label="Search by make"
-            onChange={handleChange}
+            onChange={(e) => setMake(e.value)}
             options={optionsMake}
             unstyled
             styles={stylesMake}
@@ -76,7 +67,7 @@ export const FilterForm = (props) => {
             name="price"
             id="price"
             aria-label="Search by max price"
-            onChange={handleChange}
+            onChange={(e) => setPrice(e.value)}
             options={optionsPrice}
             unstyled
             styles={stylesPrice}
@@ -88,9 +79,9 @@ export const FilterForm = (props) => {
 
         <TextInputGroup>
           <FieldLabelGroup>
-            <Label htmlFor="from">Price </Label>
+            <Label htmlFor="from">Сar mileage / km</Label>
             <TextFieldFrom
-              type="text"
+              type="number"
               name="from"
               id="from"
               placeholder="From"
@@ -102,7 +93,7 @@ export const FilterForm = (props) => {
           <FieldLabelGroup>
             <Label htmlFor="to"></Label>
             <TextFieldTo
-              type="text"
+              type="number"
               name="to"
               id="to"
               placeholder="To"
@@ -118,7 +109,7 @@ export const FilterForm = (props) => {
   );
 };
 
-// ****** PropsTypes *******************************
+// ****** PropTypes *******************************
 
 FilterForm.propTypes = {
   setSearchParams: PropTypes.func,

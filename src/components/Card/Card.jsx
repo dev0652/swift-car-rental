@@ -97,7 +97,7 @@ export const Card = ({ car, isFavorite, onFavCLick }) => {
   );
 };
 
-// ****** PropsTypes *******************************
+// ****** PropTypes *******************************
 
 Card.propTypes = {
   car: PropTypes.shape({

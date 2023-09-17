@@ -167,7 +167,7 @@ export default function Modal({ onClose, car }) {
   );
 }
 
-// ****** PropsTypes *******************************
+// ****** PropTypes *******************************
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
@@ -185,7 +185,7 @@ const Features = ({ data }) => {
   );
 };
 
-// ****** PropsTypes *******************************
+// ****** PropTypes *******************************
 
 Features.propTypes = {
   data: PropTypes.array,
@@ -211,7 +211,7 @@ const Conditions = ({ data }) => {
   );
 };
 
-// ****** PropsTypes *******************************
+// ****** PropTypes *******************************
 
 Conditions.propTypes = {
   data: PropTypes.array,

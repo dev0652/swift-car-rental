@@ -1,11 +1,12 @@
 import { Helmet } from 'react-helmet-async';
 import { Card } from 'components/Card';
 import { CardList, LoadMoreButton, LoadMoreWrapper } from './Catalog.styled';
-import { useOutletContext, useSearchParams } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 
 import { useEffect, useRef, useState } from 'react';
 import { FilterForm } from 'components/FilterForm/FilterForm';
-import { fetchCars, fetchCarsByPage } from 'services/api';
+import { fetchAllCars, fetchCarsByPage } from 'services/api';
+import { filterAdverts } from 'services/filters';
 
 // *************************************************
 
@@ -23,38 +24,60 @@ export const Catalog = () => {
 
   const [page, setPage] = useState(1);
   const [adverts, setAdverts] = useState([]);
+  const [allAdverts, setAllAdverts] = useState(null);
+  const [filteredAdverts, setFilteredAdverts] = useState(null);
 
+  // Get unfiltered adverts by page
   useEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
     }
 
-    if (searchParams) setAdverts([]);
-    if (page > 1 && searchParams) setPage(1);
+    // if (searchParams) setAdverts([]);
+    // if (page > 1 && searchParams) setPage(1);
 
-    async function getCars() {
+    (async () => {
       try {
         setError(null);
         setIsLoading(true);
-        // toast.remove();
 
-        const query = { page, ...searchParams };
-
-        const { data } = await fetchCars(query);
+        const { data } = await fetchCarsByPage(page);
         setAdverts((prev) => [...prev, ...data]);
         //
       } catch ({ message }) {
-        if (message !== 'canceled') {
-          setError(message);
-        }
+        setError(message);
       } finally {
         setIsLoading(false);
       }
-    }
+    })();
+  }, [page]);
 
-    getCars();
-  }, [page, searchParams]);
+  // Get filtered adverts on form submit
+  useEffect(() => {
+    if (!searchParams) return;
+
+    (async () => {
+      try {
+        setError(null);
+        setIsLoading(true);
+
+        const { data } = await fetchAllCars();
+        setAllAdverts(data);
+      } catch ({ message }) {
+        setError(message);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [searchParams]);
+
+  if (allAdverts && !filteredAdverts) {
+    const filtered = filterAdverts(searchParams, allAdverts);
+    setFilteredAdverts(filtered);
+  }
+
+  const data = filteredAdverts ? filteredAdverts : adverts;
 
   // ******** Favorites *************************
 
@@ -89,7 +112,7 @@ export const Catalog = () => {
     }
   };
 
-  const advertsCount = 32; // I would normally get this value from backend, but since it is a paid feature with MockApi, and fetching all entries just to get the length of the array would be too costly, I will imitate it for the sake of this test assignment.
+  const advertsCount = adverts.length > 0 ? 32 : 0; // I would normally get this value from backend, but since it is a paid feature with MockApi, and fetching all entries just to get the length of the array would be too costly, I will imitate it for the sake of this test assignment.
 
   const isThereMore = advertsCount > 8 * page;
 
@@ -113,7 +136,7 @@ export const Catalog = () => {
       {advertsCount > 0 && (
         <div>
           <CardList>
-            {adverts.map((car) => (
+            {data.map((car) => (
               <li key={car.id}>
                 <Card
                   car={car}
@@ -129,17 +152,15 @@ export const Catalog = () => {
       <LoadMoreWrapper>
         <div ref={scrollTargetRef}></div>
 
-        {!(searchParams && adverts.length <= 8) &&
-          adverts.length > 0 &&
-          isThereMore && (
-            <LoadMoreButton
-              type="button"
-              onClick={incrementPage}
-              disabled={isLoading}
-            >
-              Load more
-            </LoadMoreButton>
-          )}
+        {!filteredAdverts && data.length > 0 && isThereMore && (
+          <LoadMoreButton
+            type="button"
+            onClick={incrementPage}
+            disabled={isLoading}
+          >
+            Load more
+          </LoadMoreButton>
+        )}
       </LoadMoreWrapper>
     </>
   );

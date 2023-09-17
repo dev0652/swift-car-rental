@@ -4,7 +4,7 @@ import { theme } from 'styles/theme';
 
 const { colors, borderRadius } = theme;
 
-export const StyledForm = styled.div`
+export const StyledForm = styled.form`
   display: flex;
   gap: 18px;
 `;
