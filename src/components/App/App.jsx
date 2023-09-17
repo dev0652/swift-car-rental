@@ -1,5 +1,5 @@
 import { Header } from 'components/Header';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import storage from 'services/storage';
 
@@ -9,6 +9,8 @@ export const App = () => {
   //
   const init = () => storage.load('savedFavorites') ?? [];
   const [favorites, setFavorites] = useState(init);
+
+  useEffect(() => storage.save('savedFavorites', favorites), [favorites]);
 
   return (
     <>

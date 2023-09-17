@@ -19,6 +19,8 @@ export const FavoriteButton = ({ isFavorite, onClick }) => {
   );
 };
 
+// ****** PropsTypes *******************************
+
 FavoriteButton.propTypes = {
   isFavorite: PropTypes.bool,
   onClick: PropTypes.func,

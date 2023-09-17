@@ -10,6 +10,9 @@ export default function Section({ title, children }) {
   );
 }
 
+// ****** PropsTypes *******************************
+
 Section.propTypes = {
   title: PropTypes.string.isRequired,
+  children: PropTypes.node,
 };

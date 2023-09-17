@@ -1,4 +1,4 @@
-// import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 import { Card } from 'components/Card';
 import { CardList, LoadMoreButton, LoadMoreWrapper } from './Catalog.styled';
 import { useOutletContext } from 'react-router-dom';
@@ -6,8 +6,6 @@ import { useOutletContext } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { FilterForm } from 'components/FilterForm/FilterForm';
 import { fetchCarsByPage } from 'services/api';
-
-import storage from 'services/storage';
 
 // *************************************************
 
@@ -67,8 +65,6 @@ export const Catalog = () => {
     isFavorite(id) ? removeFromFavorites(id) : addToFavorites(id);
   };
 
-  useEffect(() => storage.save('savedFavorites', favorites), [favorites]);
-
   // ******** Other logic ***********************
 
   // Increment page count (Load More button)
@@ -87,10 +83,18 @@ export const Catalog = () => {
 
   const isThereMore = advertsCount > 8 * page;
 
-  // *************************************************
+  // ******* Render *******************************
 
   return (
     <>
+      <Helmet>
+        <title>Cars for Rent in Ukraine</title>
+        <meta
+          name="description"
+          content="Browse through our selection of premium cars available for rent in Ukraine"
+        />
+      </Helmet>
+
       <FilterForm />
 
       {isLoading && <div>Loading...</div>}
