@@ -3,7 +3,7 @@ import { BaseButton } from 'styles/buttons';
 import { theme } from 'styles/theme';
 
 const { colors, borderRadius } = theme;
-const { accent, primaryText } = colors;
+const { accent, primaryText, bgLight } = colors;
 
 export const Overlay = styled.div`
   position: fixed;
@@ -127,8 +127,8 @@ export const ConditionTag = styled.li`
   padding: 7px 14px;
 
   border-radius: ${borderRadius.tag};
-  background-color: ${colors.bgLight};
   color: ${colors.tagText};
+  background-color: ${bgLight};
 
   font-size: 0.75rem; // 12px;
   line-height: 150%;

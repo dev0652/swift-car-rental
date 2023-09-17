@@ -40,7 +40,6 @@ export const Catalog = () => {
         // toast.remove();
 
         const query = { page, ...searchParams };
-        console.log('query: ', query);
 
         const { data } = await fetchCars(query);
         setAdverts((prev) => [...prev, ...data]);
