@@ -1,11 +1,25 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
+
+import Select from 'react-select';
+import { makeStyles } from './SelectStyles';
+
 import { makes } from 'src/data/makes';
+import {
+  FieldLabelGroup,
+  Label,
+  StyledForm,
+  SubmitButton,
+  TextFieldFrom,
+  TextFieldTo,
+  TextInputGroup,
+} from './FilterForm.styled';
 
-const sortedMakes = makes.sort((a, b) => a.localeCompare(b));
+// *************************************************
 
-// eslint-disable-next-line react/prop-types
-export const FilterForm = ({ setSearchParams }) => {
-  //
+export const FilterForm = (props) => {
+  const { setSearchParams } = props;
+
   const [make, setMake] = useState('');
   const [price, setPrice] = useState('');
   const [from, setFrom] = useState('');
@@ -34,49 +48,101 @@ export const FilterForm = ({ setSearchParams }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setSearchParams({ make, price, mileage });
+    setSearchParams({ make });
     setMake('');
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="make">Car brand </label>
-        <select
-          name="make" // used to serialize form (i.e., goes to URL search params)
-          id="make"
-          aria-label="Search by make"
-          onChange={handleChange}
-        >
-          <option value="">Enter text</option>
-          {sortedMakes.map((make, index) => (
-            <option key={index} value={make}>
-              {make}
-            </option>
-          ))}
-        </select>
+      <StyledForm onSubmit={handleSubmit}>
+        <FieldLabelGroup>
+          <Label htmlFor="make">Car brand </Label>
+          <Select
+            name="make" // used to serialize form (i.e., goes to URL search params)
+            id="make"
+            aria-label="Search by make"
+            onChange={handleChange}
+            options={optionsMake}
+            unstyled
+            styles={stylesMake}
+            placeholder="Enter the text"
+            // value={make}
+          />
+        </FieldLabelGroup>
 
-        <label htmlFor="price">Car brand </label>
-        <select
-          name="price" // used to serialize form (i.e., goes to URL search params)
-          id="price"
-          aria-label="Search by price"
-          onChange={handleChange}
-        >
-          <option value="">Enter text</option>
-          {sortedMakes.map((make, index) => (
-            <option key={index} value={make}>
-              {make}
-            </option>
-          ))}
-        </select>
+        <FieldLabelGroup>
+          <Label htmlFor="price">Price </Label>
+          <Select
+            name="price"
+            id="price"
+            aria-label="Search by max price"
+            onChange={handleChange}
+            options={optionsPrice}
+            unstyled
+            styles={stylesPrice}
+            placeholder="To $"
+            isSearchable={false}
+            // value={price}
+          />
+        </FieldLabelGroup>
 
-        {/* <input type="text" name="from" id="from" placeholder="From" />
-        <input type="text" name="to" id="to" placeholder="To" /> */}
-        <button type="submit">Search</button>
-      </form>
+        <TextInputGroup>
+          <FieldLabelGroup>
+            <Label htmlFor="from">Price </Label>
+            <TextFieldFrom
+              type="text"
+              name="from"
+              id="from"
+              placeholder="From"
+              onChange={handleChange}
+              // value={from}
+            />
+          </FieldLabelGroup>
+
+          <FieldLabelGroup>
+            <Label htmlFor="to"></Label>
+            <TextFieldTo
+              type="text"
+              name="to"
+              id="to"
+              placeholder="To"
+              onChange={handleChange}
+              // value={to}
+            />
+          </FieldLabelGroup>
+        </TextInputGroup>
+
+        <SubmitButton type="submit">Search</SubmitButton>
+      </StyledForm>
     </>
   );
 };
 
 // ****** PropsTypes *******************************
+
+FilterForm.propTypes = {
+  setSearchParams: PropTypes.func,
+};
+
+// ****** Options for selects *****************************
+
+const makeSelectOptions = (arr) => arr.map((el) => ({ value: el, label: el }));
+
+function generateNumberArray(start, end, increment) {
+  const result = [];
+  for (let i = start; i <= end; i += increment) {
+    result.push(i);
+  }
+  return result;
+}
+
+const sortedMakes = makes.sort((a, b) => a.localeCompare(b));
+const optionsMake = makeSelectOptions(sortedMakes);
+
+const prices = generateNumberArray(10, 250, 10);
+const optionsPrice = makeSelectOptions(prices);
+
+// ***** Widths for selects *******************************
+
+const stylesMake = makeStyles({ container: { width: 224 } });
+const stylesPrice = makeStyles({ container: { width: 125 } });

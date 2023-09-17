@@ -10,6 +10,7 @@ export const theme = {
 
     primaryText: '#121417',
     primaryText50: '#12141780',
+    primaryText20: '#12141733',
     primaryText10: '#1214171A',
 
     secondaryText: '#8A8A89',

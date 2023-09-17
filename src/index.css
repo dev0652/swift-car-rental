@@ -30,22 +30,26 @@ body {
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 
   /* Firefox: */
-  scrollbar-width: thin;
+  scrollbar-color: rgba(18, 20, 23, 0.05) white;
 }
 
-/* ::-webkit-scrollbar {
-  width: 5px;
-  background-color: GhostWhite;
-  overflow: auto;
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: white;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: gainsboro;
-  border-radius: 12px;
-} */
+  background-color: rgba(18, 20, 23, 0.05);
+  border-radius: 10px;
+}
 
 ul {
   list-style: none;
+}
+
+address {
+  font-style: normal;
 }
 
 img,
@@ -67,10 +71,33 @@ button {
   font-family: inherit;
 }
 
-button {
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
   cursor: pointer;
+  font-family: inherit;
+  text-align: center;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 button:disabled {
   cursor: auto;
+}
+
+input::-moz-placeholder {
+  opacity: 1;
+}
+
+textarea::-moz-placeholder {
+  opacity: 1;
+}
+
+input,
+textarea,
+select {
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
 }

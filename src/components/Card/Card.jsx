@@ -18,7 +18,7 @@ import { useState } from 'react';
 import placeholderImage from 'assets/placeholder-image.jpg';
 import { FavoriteButton } from 'components/FavoriteButton/FavoriteButton';
 
-//
+// *************************************************
 
 export const Card = ({ car, isFavorite, onFavCLick }) => {
   const {
@@ -96,6 +96,8 @@ export const Card = ({ car, isFavorite, onFavCLick }) => {
     </CardWrapper>
   );
 };
+
+// ****** PropsTypes *******************************
 
 Card.propTypes = {
   car: PropTypes.shape({
