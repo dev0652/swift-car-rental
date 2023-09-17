@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { Card } from 'components/Card';
 import { CardList, LoadMoreButton, LoadMoreWrapper } from './Catalog.styled';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useSearchParams } from 'react-router-dom';
 
 import { useEffect, useRef, useState } from 'react';
 import { FilterForm } from 'components/FilterForm/FilterForm';
-import { fetchCarsByPage } from 'services/api';
+import { fetchCars, fetchCarsByPage } from 'services/api';
 
 // *************************************************
 
@@ -19,6 +19,8 @@ export const Catalog = () => {
 
   // ******** Get cars *************************
 
+  const [searchParams, setSearchParams] = useState(null);
+
   const [page, setPage] = useState(1);
   const [adverts, setAdverts] = useState([]);
 
@@ -28,12 +30,19 @@ export const Catalog = () => {
       return;
     }
 
-    async function fetchCars() {
+    if (searchParams) setAdverts([]);
+    if (page > 1 && searchParams) setPage(1);
+
+    async function getCars() {
       try {
         setError(null);
         setIsLoading(true);
         // toast.remove();
-        const { data } = await fetchCarsByPage(page);
+
+        const query = { page, ...searchParams };
+        console.log('query: ', query);
+
+        const { data } = await fetchCars(query);
         setAdverts((prev) => [...prev, ...data]);
         //
       } catch ({ message }) {
@@ -45,8 +54,8 @@ export const Catalog = () => {
       }
     }
 
-    fetchCars();
-  }, [page]);
+    getCars();
+  }, [page, searchParams]);
 
   // ******** Favorites *************************
 
@@ -97,7 +106,7 @@ export const Catalog = () => {
         />
       </Helmet>
 
-      <FilterForm />
+      <FilterForm setSearchParams={setSearchParams} />
 
       {isLoading && <div>Loading...</div>}
       {error && <div>{error}</div>}
@@ -121,15 +130,17 @@ export const Catalog = () => {
       <LoadMoreWrapper>
         <div ref={scrollTargetRef}></div>
 
-        {adverts.length > 0 && isThereMore && (
-          <LoadMoreButton
-            type="button"
-            onClick={incrementPage}
-            disabled={isLoading}
-          >
-            Load more
-          </LoadMoreButton>
-        )}
+        {!(searchParams && adverts.length <= 8) &&
+          adverts.length > 0 &&
+          isThereMore && (
+            <LoadMoreButton
+              type="button"
+              onClick={incrementPage}
+              disabled={isLoading}
+            >
+              Load more
+            </LoadMoreButton>
+          )}
       </LoadMoreWrapper>
     </>
   );
