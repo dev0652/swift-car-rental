@@ -51,14 +51,15 @@ export const Catalog = () => {
   // ******** Favorites *************************
 
   const [favorites, setFavorites] = useOutletContext();
-  const isFavorite = (id) => favorites.includes(id);
+  const isFavorite = (id) => favorites.find((ad) => ad.id === id);
 
   const addToFavorites = (id) => {
-    setFavorites((prevState) => [...prevState, id]);
+    const newFavorite = adverts.find((ad) => ad.id === id);
+    setFavorites((prevState) => [...prevState, newFavorite]);
   };
 
   const removeFromFavorites = (id) => {
-    setFavorites((prevState) => prevState.filter((el) => el !== id));
+    setFavorites((prevState) => prevState.filter((ad) => ad.id !== id));
   };
 
   const handleToggleFavorite = (id) => {

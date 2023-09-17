@@ -26,8 +26,8 @@ export const fetchCarsByPage = async (page = 1, limit = 8) => {
   return response;
 };
 
-export const fetchFilteredCars = async (query) => {
-  const params = { ...query };
+export const fetchCars = async (page = 1, limit = 8, query) => {
+  const params = { page, limit, ...query };
 
   const controller = new AbortController();
   const signal = controller.signal;
