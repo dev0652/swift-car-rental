@@ -10,27 +10,30 @@ import './index.css';
 
 // *************************************************
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: '/catalog',
-        element: <Catalog />,
-      },
-      {
-        path: '/favorites',
-        element: <Favorites />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <App />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: '/catalog',
+          element: <Catalog />,
+        },
+        {
+          path: '/favorites',
+          element: <Favorites />,
+        },
+      ],
+    },
+  ],
+  { basename: import.meta.env.DEV ? '/' : '/swift-car-rental/' }
+);
 
 // *************************************************
 

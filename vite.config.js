@@ -7,7 +7,6 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ command }) => {
   const config = {
-    base: '/',
     resolve: {
       alias: {
         src: '/src',
@@ -21,10 +20,11 @@ export default defineConfig(({ command }) => {
       },
     },
     plugins: [react()],
+    base: '/',
   };
 
   if (command !== 'serve') {
-    config.base = '/swift-car-rental';
+    config.base = '/swift-car-rental/';
   }
 
   return config;
