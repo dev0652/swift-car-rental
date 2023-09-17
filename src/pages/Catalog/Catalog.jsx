@@ -51,7 +51,8 @@ export const Catalog = () => {
   // ******** Favorites *************************
 
   const [favorites, setFavorites] = useOutletContext();
-  const isFavorite = (id) => favorites.find((ad) => ad.id === id);
+
+  const isFavorite = (id) => favorites.some((ad) => ad.id === id);
 
   const addToFavorites = (id) => {
     const newFavorite = adverts.find((ad) => ad.id === id);

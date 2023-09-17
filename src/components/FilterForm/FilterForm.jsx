@@ -5,7 +5,12 @@ const sortedMakes = makes.sort((a, b) => a.localeCompare(b));
 
 // eslint-disable-next-line react/prop-types
 export const FilterForm = () => {
-  const [input, setInput] = useState('');
+  const [make, setMake] = useState('');
+
+  const handleChange = (event) => {
+    setMake(event.target.value);
+    console.log('event.target.value: ', event.target.value);
+  };
 
   //   const handleChange = (e) => {
   //     setInput(e.target.value);
@@ -18,8 +23,8 @@ export const FilterForm = () => {
     <>
       <form>
         <label htmlFor="byMake">
-          <select name="" id="byMake">
-            {/* <option value="">---</option> */}
+          <select name="" id="byMake" onChange={handleChange}>
+            <option value="">Enter text</option>
             {sortedMakes.map((make, index) => (
               <option key={index} value={make}>
                 {make}
@@ -27,8 +32,8 @@ export const FilterForm = () => {
             ))}
           </select>
         </label>
-        <input type="text" name="from" id="from" placeholder="From" />
-        <input type="text" name="to" id="to" placeholder="To" />
+        {/* <input type="text" name="from" id="from" placeholder="From" />
+        <input type="text" name="to" id="to" placeholder="To" /> */}
       </form>
     </>
   );
