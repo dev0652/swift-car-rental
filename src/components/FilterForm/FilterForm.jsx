@@ -1,28 +1,35 @@
 import { useState } from 'react';
-import { Form } from 'react-router-dom';
+import { makes } from 'src/data/makes';
+
+const sortedMakes = makes.sort((a, b) => a.localeCompare(b));
 
 // eslint-disable-next-line react/prop-types
-export const FilterForm = ({ action }) => {
+export const FilterForm = () => {
   const [input, setInput] = useState('');
 
-  const handleChange = (e) => {
-    setInput(e.target.value);
-  };
+  //   const handleChange = (e) => {
+  //     setInput(e.target.value);
+  //   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  //   const handleSubmit = (e) => {
+  //     e.preventDefault();
 
-    if (input.trim() === '') {
-      // alert('Your search request is empty');
-      action({});
-      return;
-    }
-
-    action({ year: input });
-    // setInput('');
-    // or
-    // e.currentTarget.reset();
-  };
-
-  return <form action=""></form>;
+  return (
+    <>
+      <form>
+        <label htmlFor="byMake">
+          <select name="" id="byMake">
+            {/* <option value="">---</option> */}
+            {sortedMakes.map((make, index) => (
+              <option key={index} value={make}>
+                {make}
+              </option>
+            ))}
+          </select>
+        </label>
+        <input type="text" name="from" id="from" placeholder="From" />
+        <input type="text" name="to" id="to" placeholder="To" />
+      </form>
+    </>
+  );
 };
