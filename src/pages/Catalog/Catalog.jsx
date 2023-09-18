@@ -1,6 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { Card } from 'components/Card';
-import { CardList, LoadMoreButton, LoadMoreWrapper } from './Catalog.styled';
+import {
+  CardList,
+  ContentWrapper,
+  LoadMoreButton,
+  LoadMoreWrapper,
+} from './Catalog.styled';
 import { useOutletContext } from 'react-router-dom';
 
 import { useEffect, useRef, useState } from 'react';
@@ -13,7 +18,6 @@ import { filterAdverts } from 'services/filters';
 export const Catalog = () => {
   //
   const scrollTargetRef = useRef(null);
-  const firstUpdate = useRef(true);
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,14 +33,6 @@ export const Catalog = () => {
 
   // Get unfiltered adverts by page
   useEffect(() => {
-    // if (firstUpdate.current) {
-    //   firstUpdate.current = false;
-    //   return;
-    // }
-
-    // if (searchParams) setAdverts([]);
-    // if (page > 1 && searchParams) setPage(1);
-
     (async () => {
       try {
         setError(null);
@@ -119,7 +115,7 @@ export const Catalog = () => {
   // ******* Render *******************************
 
   return (
-    <>
+    <ContentWrapper>
       <Helmet>
         <title>Cars for Rent in Ukraine</title>
         <meta
@@ -162,6 +158,6 @@ export const Catalog = () => {
           </LoadMoreButton>
         )}
       </LoadMoreWrapper>
-    </>
+    </ContentWrapper>
   );
 };

@@ -1,17 +1,19 @@
-import { StyledHeader, StyledNavLink } from './Header.styled';
+import { Container, StyledHeader, StyledNavLink } from './Header.styled';
 
 export const Header = () => {
   return (
     <StyledHeader>
-      <nav>
-        <StyledNavLink to="/" end>
-          Home
-        </StyledNavLink>
+      <Container>
+        <nav>
+          <StyledNavLink to="/" end>
+            Home
+          </StyledNavLink>
 
-        <StyledNavLink to="/catalog">Catalog</StyledNavLink>
+          <StyledNavLink to="/catalog">Catalog</StyledNavLink>
 
-        <StyledNavLink to="/favorites">Favorites</StyledNavLink>
-      </nav>
+          <StyledNavLink to="/favorites">Favorites</StyledNavLink>
+        </nav>
+      </Container>
     </StyledHeader>
   );
 };

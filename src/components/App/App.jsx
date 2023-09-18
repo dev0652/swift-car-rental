@@ -2,6 +2,7 @@ import { Header } from 'components/Header';
 import { Suspense, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import storage from 'services/storage';
+import { Container, Main } from './App.styled';
 
 // *************************************************
 
@@ -13,14 +14,16 @@ export const App = () => {
   useEffect(() => storage.save('savedFavorites', favorites), [favorites]);
 
   return (
-    <>
+    <div>
       <Header />
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <main>
-          <Outlet context={[favorites, setFavorites]} />
-        </main>
-      </Suspense>
-    </>
+      <Container>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Main>
+            <Outlet context={[favorites, setFavorites]} />
+          </Main>
+        </Suspense>
+      </Container>
+    </div>
   );
 };

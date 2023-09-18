@@ -5,8 +5,17 @@ const {
   colors: { accent, accentHover, accentActive },
 } = theme;
 
+export const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+`;
+
 export const CardList = styled.ul`
   display: flex;
+  justify-content: center;
+
   flex-wrap: wrap;
   /* flex-basis: 250px; */
   column-gap: 29px;
