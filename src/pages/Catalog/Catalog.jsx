@@ -10,6 +10,8 @@ import { useOutletContext } from 'react-router-dom';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { FilterForm } from 'components/FilterForm/FilterForm';
+import Loader from 'components/Loader';
+
 import { fetchAllCars, fetchCarsByPage } from 'services/api';
 import { filterAdverts } from 'services/filters';
 
@@ -127,7 +129,8 @@ export const Catalog = () => {
 
       <FilterForm setSearchParams={setSearchParams} />
 
-      {isLoading && <div>Loading...</div>}
+      {isLoading && <Loader />}
+
       {error && <div>{error}</div>}
 
       {advertsCount > 0 && (
