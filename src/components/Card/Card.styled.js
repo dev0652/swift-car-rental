@@ -12,13 +12,16 @@ export const CardWrapper = styled.div`
   width: 274px;
 `;
 
-export const CardContent = styled.div``;
+export const CardContent = styled.article``;
+
+export const HiddenTitle = styled.h2`
+  display: none;
+`;
 
 export const Thumbnail = styled.div`
   position: relative;
 
-  /* width: 274px; */
-  width: 100%;
+  width: 100%; // 274px
   height: 268px;
   overflow: hidden;
   border-radius: ${borderRadius.regular};

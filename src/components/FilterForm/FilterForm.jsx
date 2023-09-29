@@ -38,9 +38,20 @@ export const FilterForm = ({ setSearchParams }) => {
     }
   };
 
+  // const resetFormState = () => {
+  //   setMake('');
+  //   setPrice('');
+  //   setFrom('');
+  //   setTo('');
+  // };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setSearchParams({ make, price, from, to });
+    // event.target.reset();
+
+    // selectInputRef.current.select.clearValue();
+    // resetFormState();
   };
 
   return (
@@ -57,7 +68,7 @@ export const FilterForm = ({ setSearchParams }) => {
             unstyled
             styles={stylesMake}
             placeholder="Enter the text"
-            // value={make}
+            currentValue={make}
           />
         </FieldLabelGroup>
 
@@ -73,7 +84,7 @@ export const FilterForm = ({ setSearchParams }) => {
             styles={stylesPrice}
             placeholder="To $"
             isSearchable={false}
-            // value={price}
+            currentValue={price}
           />
         </FieldLabelGroup>
 

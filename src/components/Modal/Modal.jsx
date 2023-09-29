@@ -83,6 +83,7 @@ export default function Modal({ onClose, car }) {
   const arr = address.split(', ');
   const country = arr[arr.length - 1];
   const city = arr[arr.length - 2];
+  // const [ , city, country ] = arr;
 
   const makeConditionsObj = (stringWithBreaks) => {
     const array = stringWithBreaks.split('\n');

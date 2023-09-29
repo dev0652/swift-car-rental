@@ -10,6 +10,7 @@ import {
   Button,
   Accented,
   MakeModelYear,
+  HiddenTitle,
 } from './Card.styled';
 
 import Modal from 'components/Modal';
@@ -51,13 +52,17 @@ export const Card = ({ car, isFavorite, onFavCLick }) => {
   return (
     <CardWrapper>
       <CardContent>
+        <HiddenTitle />
+
         <Thumbnail>
           <Image
             src={photoLink || placeholderImage}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping
               currentTarget.src = placeholderImage;
+              // onLoad()
             }}
+            // onLoad={onLoad}
             width={250}
             height={250}
             alt={`${formattedMake} ${model} ${type}`}

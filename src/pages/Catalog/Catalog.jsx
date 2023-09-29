@@ -8,7 +8,7 @@ import {
 } from './Catalog.styled';
 import { useOutletContext } from 'react-router-dom';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { FilterForm } from 'components/FilterForm/FilterForm';
 import { fetchAllCars, fetchCarsByPage } from 'services/api';
 import { filterAdverts } from 'services/filters';
@@ -17,6 +17,7 @@ import { filterAdverts } from 'services/filters';
 
 export const Catalog = () => {
   //
+  const isFirstRender = useRef(true);
   const scrollTargetRef = useRef(null);
 
   const [error, setError] = useState(null);
@@ -31,42 +32,33 @@ export const Catalog = () => {
   const [allAdverts, setAllAdverts] = useState(null);
   const [filteredAdverts, setFilteredAdverts] = useState(null);
 
+  const getCars = useCallback(async () => {
+    try {
+      setError(null);
+      setIsLoading(true);
+      const { data } = await fetchCarsByPage(page);
+      setAdverts((prev) => [...prev, ...data]);
+    } catch ({ message }) {
+      setError(message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [page]);
+
   // Get unfiltered adverts by page
   useEffect(() => {
-    (async () => {
-      try {
-        setError(null);
-        setIsLoading(true);
+    if (page === 1 && !isFirstRender.current) return;
+    if (isFirstRender.current) isFirstRender.current = false;
+    getCars();
 
-        const { data } = await fetchCarsByPage(page);
-        setAdverts((prev) => [...prev, ...data]);
-        //
-      } catch ({ message }) {
-        setError(message);
-      } finally {
-        setIsLoading(false);
-      }
-    })();
-  }, [page]);
+    if (page > 1) scrollTargetRef.current.scrollIntoView();
+  }, [getCars, page]);
 
   // Get filtered adverts on form submit
   useEffect(() => {
     if (!searchParams) return;
-
-    (async () => {
-      try {
-        setError(null);
-        setIsLoading(true);
-
-        const { data } = await fetchAllCars();
-        setAllAdverts(data);
-      } catch ({ message }) {
-        setError(message);
-      } finally {
-        setIsLoading(false);
-      }
-    })();
-  }, [searchParams]);
+    getCars();
+  }, [getCars, searchParams]);
 
   if (allAdverts && !filteredAdverts) {
     const filtered = filterAdverts(searchParams, allAdverts);
@@ -96,21 +88,11 @@ export const Catalog = () => {
 
   // ******** Other logic ***********************
 
-  // Increment page count (Load More button)
-  const incrementPage = () => {
-    setPage((prevState) => prevState + 1);
-
-    if (scrollTargetRef.current && !isLoading) {
-      //
-      setTimeout(() => {
-        scrollTargetRef.current.scrollIntoView({ behavior: 'smooth' });
-      }, 300);
-    }
-  };
+  const incrementPage = () => setPage((prevState) => prevState + 1);
 
   const advertsCount = adverts.length > 0 ? 32 : 0; // I would normally get this value from backend, but since it is a paid feature with MockApi, and fetching all entries just to get the length of the array would be too costly, I will imitate it for the sake of this test assignment.
 
-  const isThereMore = advertsCount > 8 * page;
+  const isLoadMoreVisible = advertsCount > 8 * page;
 
   // ******* Render *******************************
 
@@ -138,6 +120,7 @@ export const Catalog = () => {
                   car={car}
                   onFavCLick={handleToggleFavorite}
                   isFavorite={isFavorite(car.id)}
+                  // onLoad={onLoad}
                 />
               </li>
             ))}
@@ -148,7 +131,7 @@ export const Catalog = () => {
       <LoadMoreWrapper>
         <div ref={scrollTargetRef}></div>
 
-        {!filteredAdverts && data.length > 0 && isThereMore && (
+        {!filteredAdverts && data.length > 0 && isLoadMoreVisible && (
           <LoadMoreButton
             type="button"
             onClick={incrementPage}
