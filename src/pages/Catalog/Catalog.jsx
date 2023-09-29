@@ -7,11 +7,13 @@ import {
   LoadMoreWrapper,
 } from './Catalog.styled';
 import { useOutletContext } from 'react-router-dom';
-
 import { useCallback, useEffect, useRef, useState } from 'react';
+
 import { FilterForm } from 'components/FilterForm/FilterForm';
 import { fetchAllCars, fetchCarsByPage } from 'services/api';
 import { filterAdverts } from 'services/filters';
+
+import { after } from 'underscore';
 
 // *************************************************
 
@@ -45,20 +47,31 @@ export const Catalog = () => {
     }
   }, [page]);
 
+  const getAllCars = useCallback(async () => {
+    try {
+      setError(null);
+      setIsLoading(true);
+      const { data } = await fetchAllCars();
+      setAllAdverts(data);
+    } catch ({ message }) {
+      setError(message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
   // Get unfiltered adverts by page
   useEffect(() => {
     if (page === 1 && !isFirstRender.current) return;
     if (isFirstRender.current) isFirstRender.current = false;
     getCars();
-
-    if (page > 1) scrollTargetRef.current.scrollIntoView();
   }, [getCars, page]);
 
   // Get filtered adverts on form submit
   useEffect(() => {
     if (!searchParams) return;
-    getCars();
-  }, [getCars, searchParams]);
+    getAllCars();
+  }, [getAllCars, searchParams]);
 
   if (allAdverts && !filteredAdverts) {
     const filtered = filterAdverts(searchParams, allAdverts);
@@ -86,9 +99,15 @@ export const Catalog = () => {
     isFavorite(id) ? removeFromFavorites(id) : addToFavorites(id);
   };
 
-  // ******** Other logic ***********************
+  // ******** Load More ***********************
 
   const incrementPage = () => setPage((prevState) => prevState + 1);
+
+  const onComplete = after(8, () => {
+    if (page > 1)
+      scrollTargetRef.current.scrollIntoView({ behavior: 'smooth' });
+  });
+  // http://webcache.googleusercontent.com/search?q=cache:C1HY9HyeZ8sJ:https://medium.com/programming-essentials/how-to-detect-when-all-images-are-loaded-in-a-react-component-d831d0c675b2&client=firefox-b-d&sca_esv=569475139&hl=uk&gl=ua&strip=1&vwsrc=0
 
   const advertsCount = adverts.length > 0 ? 32 : 0; // I would normally get this value from backend, but since it is a paid feature with MockApi, and fetching all entries just to get the length of the array would be too costly, I will imitate it for the sake of this test assignment.
 
@@ -120,7 +139,7 @@ export const Catalog = () => {
                   car={car}
                   onFavCLick={handleToggleFavorite}
                   isFavorite={isFavorite(car.id)}
-                  // onLoad={onLoad}
+                  onComplete={onComplete}
                 />
               </li>
             ))}

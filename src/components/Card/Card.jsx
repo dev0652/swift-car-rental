@@ -21,7 +21,7 @@ import { FavoriteButton } from 'components/FavoriteButton/FavoriteButton';
 
 // *************************************************
 
-export const Card = ({ car, isFavorite, onFavCLick }) => {
+export const Card = ({ car, isFavorite, onFavCLick, onComplete }) => {
   const {
     id,
     year,
@@ -57,12 +57,12 @@ export const Card = ({ car, isFavorite, onFavCLick }) => {
         <Thumbnail>
           <Image
             src={photoLink || placeholderImage}
+            onLoad={onComplete}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping
               currentTarget.src = placeholderImage;
-              // onLoad()
+              onComplete();
             }}
-            // onLoad={onLoad}
             width={250}
             height={250}
             alt={`${formattedMake} ${model} ${type}`}
@@ -121,4 +121,5 @@ Card.propTypes = {
 
   isFavorite: PropTypes.bool,
   onFavCLick: PropTypes.func,
+  onComplete: PropTypes.func,
 };
