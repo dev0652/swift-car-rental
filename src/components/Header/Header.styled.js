@@ -42,18 +42,29 @@ export const LogoNavLink = styled(NavLink)`
   gap: 10px;
 
   text-decoration: none;
+
+  color: ${colors.accent};
+  font-weight: 700;
+  font-size: 1.4rem;
+
+  &:hover,
+  &:focus-visible {
+    color: ${colors.accentHover};
+  }
+
+  &:active {
+    color: ${colors.accentActive};
+  }
 `;
 
 export const Logo = styled(AiFillCar)`
-  color: ${colors.accentActive};
+  color: inherit;
   height: 2.5rem;
   width: auto;
 `;
 
 export const LogoText = styled.p`
-  color: ${colors.accent};
-  font-weight: 700;
-  font-size: 1.4rem;
+  color: inherit;
 `;
 
 export const Navigation = styled.nav`

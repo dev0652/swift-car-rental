@@ -1,10 +1,8 @@
-import { NavLink } from 'react-router-dom';
 import {
   Container,
   Logo,
   LogoNavLink,
   LogoText,
-  LogoWrapper,
   NavItem,
   NavList,
   Navigation,
