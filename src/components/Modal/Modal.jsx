@@ -35,7 +35,7 @@ const modalRoot = document.querySelector('#modal-root');
 
 // #######################################
 
-export default function Modal({ onClose, car }) {
+export const Modal = ({ onClose, car }) => {
   //
   const {
     id,
@@ -166,7 +166,7 @@ export default function Modal({ onClose, car }) {
     </Overlay>,
     modalRoot
   );
-}
+};
 
 // ****** PropTypes *******************************
 

@@ -1,4 +1,10 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+
+import { Modal, FavoriteButton } from 'components';
+
+import placeholderImage from 'assets/placeholder-image.jpg';
+
 import {
   Caption,
   CardWrapper,
@@ -12,12 +18,6 @@ import {
   MakeModelYear,
   HiddenTitle,
 } from './Card.styled';
-
-import Modal from 'components/Modal';
-import { useState } from 'react';
-
-import placeholderImage from 'assets/placeholder-image.jpg';
-import { FavoriteButton } from 'components/FavoriteButton/FavoriteButton';
 
 // *************************************************
 

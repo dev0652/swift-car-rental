@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
-import { App } from 'components/App';
+import { App } from 'components';
 import { Catalog, ErrorPage, Favorites, Home } from 'pages';
 
 import './index.css';

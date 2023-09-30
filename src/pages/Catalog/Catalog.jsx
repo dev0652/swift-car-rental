@@ -1,21 +1,19 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
+
 import { Helmet } from 'react-helmet-async';
-import { Card } from 'components/Card';
+import { after } from 'underscore';
+
+import { Card, FilterForm, Loader } from 'components';
+import { fetchAllCars, fetchCarsByPage } from 'services/api';
+import { filterAdverts } from 'services/filters';
+
 import {
   CardList,
   ContentWrapper,
   LoadMoreButton,
   LoadMoreWrapper,
 } from './Catalog.styled';
-import { useOutletContext } from 'react-router-dom';
-import { useCallback, useEffect, useRef, useState } from 'react';
-
-import { FilterForm } from 'components/FilterForm/FilterForm';
-import Loader from 'components/Loader';
-
-import { fetchAllCars, fetchCarsByPage } from 'services/api';
-import { filterAdverts } from 'services/filters';
-
-import { after } from 'underscore';
 
 // *************************************************
 

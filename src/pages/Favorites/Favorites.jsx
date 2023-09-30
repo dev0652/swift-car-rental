@@ -1,8 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { useOutletContext } from 'react-router-dom';
 
-import { Card } from 'components/Card';
 import { CardList } from 'pages/Catalog/Catalog.styled';
+
+import { Card, EmptyFavorites } from 'components';
 
 // *************************************************
 
@@ -24,17 +25,21 @@ export const Favorites = () => {
       </Helmet>
 
       <div>
-        <CardList>
-          {favorites.map((car) => (
-            <li key={car.id}>
-              <Card
-                car={car}
-                onFavCLick={removeFromFavorites}
-                isFavorite={true}
-              />
-            </li>
-          ))}
-        </CardList>
+        {!favorites.length && <EmptyFavorites />}
+
+        {favorites.length !== 0 && (
+          <CardList>
+            {favorites.map((car) => (
+              <li key={car.id}>
+                <Card
+                  car={car}
+                  onFavCLick={removeFromFavorites}
+                  isFavorite={true}
+                />
+              </li>
+            ))}
+          </CardList>
+        )}
       </div>
     </>
   );

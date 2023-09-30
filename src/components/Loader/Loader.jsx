@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { theme } from 'styles/theme';
 
-const Loader = () => {
+export const Loader = () => {
   return (
     <Overlay>
       <LoaderWrapper>
@@ -21,12 +21,4 @@ const Loader = () => {
       </LoaderWrapper>
     </Overlay>
   );
-};
-
-export default Loader;
-
-// ####### PropTypes ######################
-
-Loader.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
 };
