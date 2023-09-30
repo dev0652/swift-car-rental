@@ -1,9 +1,21 @@
-import { Container, StyledHeader, StyledNavLink } from './Header.styled';
+import {
+  Container,
+  Logo,
+  LogoText,
+  LogoWrapper,
+  StyledHeader,
+  StyledNavLink,
+} from './Header.styled';
 
 export const Header = () => {
   return (
     <StyledHeader>
       <Container>
+        <LogoWrapper>
+          <Logo />
+          <LogoText>Swift Car Rental</LogoText>
+        </LogoWrapper>
+
         <nav>
           <StyledNavLink to="/" end>
             Home

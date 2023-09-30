@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { theme } from 'styles/theme';
 import { breakpoints } from 'styles/breakpoints';
+import { AiFillCar } from 'react-icons/ai';
 
 const { mobile, tablet, desktop } = breakpoints;
 const { colors } = theme;
@@ -18,6 +19,10 @@ export const StyledHeader = styled.header`
 `;
 
 export const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   padding: 12px 0;
   margin-bottom: 16px;
 
@@ -35,6 +40,24 @@ export const Container = styled.div`
   @media screen and (min-width: ${desktop}) {
     width: ${desktop};
   }
+`;
+
+export const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const Logo = styled(AiFillCar)`
+  color: ${colors.accentHover};
+  height: 2rem;
+  width: auto;
+`;
+
+export const LogoText = styled.p`
+  color: ${colors.accent};
+  font-weight: 700;
+  font-size: 1.4rem;
 `;
 
 export const StyledNavLink = styled(NavLink)`
