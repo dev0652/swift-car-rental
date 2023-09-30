@@ -9,13 +9,6 @@ const { colors } = theme;
 
 export const StyledHeader = styled.header`
   background-color: ${colors.bgLight};
-
-  & nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-  }
 `;
 
 export const Container = styled.div`
@@ -23,7 +16,8 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  padding: 12px 0;
+  /* padding: 12px 0; */
+  height: 3.5rem;
   margin-bottom: 16px;
 
   @media screen and (min-width: ${mobile}) {
@@ -32,11 +26,9 @@ export const Container = styled.div`
     margin-left: auto;
     margin-right: auto;
   }
-
   @media screen and (min-width: ${tablet}) {
     width: ${tablet};
   }
-
   @media screen and (min-width: ${desktop}) {
     width: ${desktop};
   }
@@ -49,8 +41,8 @@ export const LogoWrapper = styled.div`
 `;
 
 export const Logo = styled(AiFillCar)`
-  color: ${colors.accentHover};
-  height: 2rem;
+  color: ${colors.accentActive};
+  height: 2.5rem;
   width: auto;
 `;
 
@@ -60,23 +52,58 @@ export const LogoText = styled.p`
   font-size: 1.4rem;
 `;
 
-export const StyledNavLink = styled(NavLink)`
-  padding: 8px 16px;
+export const Navigation = styled.nav`
+  height: 100%;
+`;
+
+export const NavList = styled.ul`
+  display: flex;
+  /* gap: 12px; */
+  height: 100%;
+`;
+
+export const NavItem = styled.li`
   min-width: 100px;
   text-align: center;
+`;
 
-  border-radius: 4px;
+export const StyledNavLink = styled(NavLink)`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   text-decoration: none;
   color: ${colors.primaryText};
-  background-color: lightGray;
 
   font-weight: 500;
 
+  transition: color 200ms;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background-color: ${colors.accent};
+    transition: opacity 200ms;
+
+    opacity: 0;
+  }
+
   &:hover,
   &:focus-visible {
-    text-decoration: none;
-    color: white;
-    background-color: ${colors.accent};
+    position: relative;
+
+    color: ${colors.accent};
+
+    &::after {
+      opacity: 1;
+    }
   }
 
   &.active {
@@ -85,9 +112,7 @@ export const StyledNavLink = styled(NavLink)`
 
     &:hover,
     &:focus-visible {
-      text-decoration: none;
-      color: white;
-      background-color: ${colors.accentHover};
+      color: ${colors.accentHover};
     }
   }
 `;
