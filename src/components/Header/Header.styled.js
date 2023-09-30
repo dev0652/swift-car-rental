@@ -34,10 +34,14 @@ export const Container = styled.div`
   }
 `;
 
-export const LogoWrapper = styled.div`
+export const LogoNavLink = styled(NavLink)`
+  height: 100%;
+
   display: flex;
   align-items: center;
   gap: 10px;
+
+  text-decoration: none;
 `;
 
 export const Logo = styled(AiFillCar)`

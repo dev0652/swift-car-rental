@@ -1,6 +1,8 @@
+import { NavLink } from 'react-router-dom';
 import {
   Container,
   Logo,
+  LogoNavLink,
   LogoText,
   LogoWrapper,
   NavItem,
@@ -14,12 +16,12 @@ export const Header = () => {
   return (
     <StyledHeader>
       <Container>
-        <LogoWrapper>
+        <LogoNavLink to="/" end>
           <Logo />
           <LogoText>
             <span style={{ color: 'black' }}>Swift</span> Car Rental
           </LogoText>
-        </LogoWrapper>
+        </LogoNavLink>
 
         <Navigation>
           <NavList>
