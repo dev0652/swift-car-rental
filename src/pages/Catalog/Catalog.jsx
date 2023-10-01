@@ -14,6 +14,7 @@ import {
   LoadMoreButton,
   LoadMoreWrapper,
 } from './Catalog.styled';
+import { EmptyResults } from 'components/EmptyResults';
 
 // *************************************************
 
@@ -129,10 +130,15 @@ export const Catalog = () => {
 
       {isLoading && <Loader />}
 
-      {error && <div>{error}</div>}
+      <div>
+        {error && <p>{error}</p>}
 
-      {advertsCount > 0 && (
-        <div>
+        {data.length === 0 && (
+          // <p>Sorry, there no results matching your search</p>
+          <EmptyResults />
+        )}
+
+        {advertsCount > 0 && (
           <CardList>
             {data.map((car) => (
               <li key={car.id}>
@@ -145,8 +151,8 @@ export const Catalog = () => {
               </li>
             ))}
           </CardList>
-        </div>
-      )}
+        )}
+      </div>
 
       <LoadMoreWrapper>
         <div ref={scrollTargetRef}></div>
