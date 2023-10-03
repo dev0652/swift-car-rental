@@ -21,7 +21,7 @@ import {
 
 // *************************************************
 
-export const Card = ({ car, isFavorite, onFavCLick, onComplete }) => {
+export const Card = ({ car, isFavorite, onFavCLick, onLoadComplete }) => {
   const {
     id,
     year,
@@ -57,11 +57,11 @@ export const Card = ({ car, isFavorite, onFavCLick, onComplete }) => {
         <Thumbnail>
           <Image
             src={photoLink || placeholderImage}
-            onLoad={onComplete}
+            onLoad={onLoadComplete}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping
               currentTarget.src = placeholderImage;
-              onComplete();
+              onLoadComplete();
             }}
             width={250}
             height={250}
@@ -121,5 +121,5 @@ Card.propTypes = {
 
   isFavorite: PropTypes.bool,
   onFavCLick: PropTypes.func,
-  onComplete: PropTypes.func,
+  onLoadComplete: PropTypes.func,
 };

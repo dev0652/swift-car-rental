@@ -6,7 +6,6 @@ import { after } from 'underscore';
 
 import { Card, FilterForm, Loader } from 'components';
 import { fetchAllCars, fetchCarsByPage } from 'services/api';
-import { filterAdverts } from 'services/filters';
 
 import {
   CardList,
@@ -48,7 +47,7 @@ export const Catalog = () => {
     }
   }, [page]);
 
-  const getAllCars = useCallback(async () => {
+  const getAllAdverts = useCallback(async () => {
     try {
       setError(null);
       setIsLoading(true);
@@ -71,13 +70,21 @@ export const Catalog = () => {
   // Get filtered adverts on form submit
   useEffect(() => {
     if (!searchParams) return;
-    getAllCars();
-  }, [getAllCars, searchParams]);
+    if (!allAdverts) getAllAdverts();
 
-  if (allAdverts && !filteredAdverts) {
-    const filtered = filterAdverts(searchParams, allAdverts);
-    setFilteredAdverts(filtered);
-  }
+    if (allAdverts && !filteredAdverts) {
+      const { make, price, from, to } = searchParams;
+      const parseInt = (price) => price.slice(1, price.length);
+
+      const filter = allAdverts
+        .filter((ad) => (make ? ad.make === make : ad))
+        .filter((ad) => (price ? parseInt(ad.rentalPrice) <= price : ad))
+        .filter((ad) => (from ? ad.mileage >= from : ad))
+        .filter((ad) => (to ? ad.mileage <= to : ad));
+
+      setFilteredAdverts(filter);
+    }
+  }, [allAdverts, filteredAdverts, getAllAdverts, searchParams]);
 
   const data = filteredAdverts ? filteredAdverts : adverts;
 
@@ -104,7 +111,7 @@ export const Catalog = () => {
 
   const incrementPage = () => setPage((prevState) => prevState + 1);
 
-  const onComplete = after(8, () => {
+  const onLoadComplete = after(8, () => {
     if (page > 1)
       scrollTargetRef.current.scrollIntoView({ behavior: 'smooth' });
   });
@@ -133,10 +140,7 @@ export const Catalog = () => {
       <div>
         {error && <p>{error}</p>}
 
-        {data.length === 0 && (
-          // <p>Sorry, there no results matching your search</p>
-          <EmptyResults />
-        )}
+        {data.length === 0 && <EmptyResults />}
 
         {advertsCount > 0 && (
           <CardList>
@@ -146,7 +150,7 @@ export const Catalog = () => {
                   car={car}
                   onFavCLick={handleToggleFavorite}
                   isFavorite={isFavorite(car.id)}
-                  onComplete={onComplete}
+                  onLoadComplete={onLoadComplete}
                 />
               </li>
             ))}
