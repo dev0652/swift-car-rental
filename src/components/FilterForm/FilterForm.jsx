@@ -1,19 +1,17 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-import Select from 'react-select';
-import { makeStyles } from './SelectStyles';
-
 import { makes } from 'src/data/makes';
 import {
   FieldLabelGroup,
   Label,
   StyledForm,
   SubmitButton,
-  TextFieldFrom,
-  TextFieldTo,
+  MileageFrom,
+  MileageTo,
   TextInputGroup,
 } from './FilterForm.styled';
+import { ReactSelect } from 'components';
 
 // *************************************************
 
@@ -58,44 +56,33 @@ export const FilterForm = ({ setSearchParams }) => {
     <>
       <StyledForm onSubmit={handleSubmit}>
         <FieldLabelGroup>
-          <Label htmlFor="make">Car brand </Label>
-          <Select
+          <Label htmlFor="make">Make</Label>
+          <ReactSelect
             name="make"
-            id="make"
-            aria-label="Search by make"
-            onChange={(e) => setMake(e.value)}
-            options={optionsMake}
-            unstyled
-            styles={stylesMake}
-            placeholder="Enter the text"
-            currentValue={make}
+            onChange={setMake}
+            data={sortedMakes}
+            placeholder="Select or type"
+            value={make}
           />
         </FieldLabelGroup>
 
         <FieldLabelGroup>
-          <Label htmlFor="price">Price </Label>
-          <Select
+          <Label htmlFor="price">Price cap</Label>
+          <ReactSelect
             name="price"
-            id="price"
-            aria-label="Search by max price"
-            onChange={(e) => setPrice(e.value)}
-            options={optionsPrice}
-            unstyled
-            styles={stylesPrice}
-            placeholder="To $"
+            onChange={setPrice}
+            data={prices}
+            placeholder="$"
             isSearchable={false}
-            currentValue={price}
+            value={price}
           />
         </FieldLabelGroup>
 
         <TextInputGroup>
           <FieldLabelGroup>
-            <Label htmlFor="from">Сar mileage / km</Label>
-            <TextFieldFrom
-              type="number"
+            <Label htmlFor="from">Kilometrage</Label>
+            <MileageFrom
               name="from"
-              id="from"
-              placeholder="From"
               onChange={handleChange}
               // value={from}
             />
@@ -103,11 +90,8 @@ export const FilterForm = ({ setSearchParams }) => {
 
           <FieldLabelGroup>
             <Label htmlFor="to"></Label>
-            <TextFieldTo
-              type="number"
+            <MileageTo
               name="to"
-              id="to"
-              placeholder="To"
               onChange={handleChange}
               // value={to}
             />
@@ -126,9 +110,7 @@ FilterForm.propTypes = {
   setSearchParams: PropTypes.func,
 };
 
-// ****** Options for selects *****************************
-
-const makeSelectOptions = (arr) => arr.map((el) => ({ value: el, label: el }));
+// ****** Data for selects *****************************
 
 function generateNumberArray(start, end, increment) {
   const result = [];
@@ -139,12 +121,4 @@ function generateNumberArray(start, end, increment) {
 }
 
 const sortedMakes = makes.sort((a, b) => a.localeCompare(b));
-const optionsMake = makeSelectOptions(sortedMakes);
-
 const prices = generateNumberArray(10, 250, 10);
-const optionsPrice = makeSelectOptions(prices);
-
-// ***** Widths for selects *******************************
-
-const stylesMake = makeStyles({ container: { width: 224 } });
-const stylesPrice = makeStyles({ container: { width: 125 } });

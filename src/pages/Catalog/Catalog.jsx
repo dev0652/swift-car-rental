@@ -140,7 +140,7 @@ export const Catalog = () => {
       <div>
         {error && <p>{error}</p>}
 
-        {data.length === 0 && <EmptyResults />}
+        {searchParams && data.length === 0 && <EmptyResults />}
 
         {advertsCount > 0 && (
           <CardList>

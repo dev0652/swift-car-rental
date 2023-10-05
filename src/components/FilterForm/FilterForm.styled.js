@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { BaseButton } from 'styles/buttons';
 import { theme } from 'styles/theme';
-
 import { breakpoints } from 'styles/breakpoints';
-const { mobile, tablet, desktop } = breakpoints;
+import { NumberField } from 'components/NumberField';
 
-const { colors, borderRadius } = theme;
+const { tablet, desktop } = breakpoints;
+const { colors } = theme;
 
 export const StyledForm = styled.form`
   display: flex;
@@ -45,41 +45,16 @@ export const Label = styled.label`
   line-height: 128.571%;
 `;
 
-export const TextField = styled.input`
-  font-family: inherit;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 111.111%;
-
-  border-radius: ${borderRadius.regular};
-  padding: 14px 18px;
-  border: none;
-
-  color: ${colors.primaryText};
-  background-color: ${colors.bgLight};
-
-  width: 120px;
-
-  @media screen and (min-width: ${desktop}) {
-    width: 160px;
-  }
-
-  &::placeholder {
-    color: ${colors.primaryText};
-  }
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-export const TextFieldFrom = styled(TextField)`
+export const MileageFrom = styled(NumberField)`
+  /* border: 1px solid red;
+  background-color: #fff; */
+  color: red;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-right: 1px solid rgba(138, 138, 137, 0.2);
 `;
 
-export const TextFieldTo = styled(TextField)`
+export const MileageTo = styled(NumberField)`
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 `;
