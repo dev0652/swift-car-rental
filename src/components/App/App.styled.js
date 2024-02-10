@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { breakpoints } from 'styles/breakpoints';
-const { mobile, tablet, desktop } = breakpoints;
+const { mobile, tablet, desktopLowRes, desktop, desktopWide } = breakpoints;
 
 export const Container = styled.div`
   @media screen and (min-width: ${mobile}) {
@@ -14,8 +14,16 @@ export const Container = styled.div`
     width: ${tablet};
   }
 
+  @media screen and (min-width: ${desktopLowRes}) {
+    width: ${desktopLowRes};
+  }
+
   @media screen and (min-width: ${desktop}) {
     width: ${desktop};
+  }
+
+  @media screen and (min-width: ${desktopWide}) {
+    width: ${desktopWide};
   }
 `;
 

@@ -12,7 +12,10 @@ export const fetchAllCars = async () => {
   return response;
 };
 
-export const fetchCarsByPage = async (page = 1, limit = 8) => {
+// const defaultPageLimit = 8;
+const defaultPageLimit = window.innerWidth > 1440 ? 10 : 8;
+
+export const fetchCarsByPage = async (page = 1, limit = defaultPageLimit) => {
   const params = {
     page,
     limit,

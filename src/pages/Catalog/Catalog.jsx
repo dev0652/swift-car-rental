@@ -111,15 +111,18 @@ export const Catalog = () => {
 
   const incrementPage = () => setPage((prevState) => prevState + 1);
 
-  const onLoadComplete = after(8, () => {
+  // const adsPerPage = 8;
+  const adsPerPage = window.innerWidth > 1440 ? 10 : 8;
+
+  const onLoadComplete = after(adsPerPage, () => {
     if (page > 1)
       scrollTargetRef.current.scrollIntoView({ behavior: 'smooth' });
   });
   // http://webcache.googleusercontent.com/search?q=cache:C1HY9HyeZ8sJ:https://medium.com/programming-essentials/how-to-detect-when-all-images-are-loaded-in-a-react-component-d831d0c675b2&client=firefox-b-d&sca_esv=569475139&hl=uk&gl=ua&strip=1&vwsrc=0
 
-  const advertsCount = adverts.length > 0 ? 32 : 0; // I would normally get this value from backend, but since it is a paid feature with MockApi, and fetching all entries just to get the length of the array would be too costly, I will imitate it for the sake of this test assignment.
+  const advertsCount = adverts.length > 0 ? 30 : 0; // I would normally get this value from backend, but since it is a paid feature with MockApi, and fetching all entries just to get the length of the array would be too costly, I will imitate it for the sake of this test assignment.
 
-  const isLoadMoreVisible = advertsCount > 8 * page;
+  const isLoadMoreVisible = advertsCount > adsPerPage * page;
 
   // ******* Render *******************************
 
@@ -169,6 +172,10 @@ export const Catalog = () => {
           >
             Load more
           </LoadMoreButton>
+        )}
+
+        {!filteredAdverts && data.length > 0 && !isLoadMoreVisible && (
+          <div>End of results</div>
         )}
       </LoadMoreWrapper>
     </ContentWrapper>

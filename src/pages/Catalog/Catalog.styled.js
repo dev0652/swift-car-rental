@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
+import { breakpoints } from 'styles/breakpoints';
+const { desktopWide } = breakpoints;
 
 const {
   colors: { accent, accentHover, accentActive },
@@ -20,6 +22,10 @@ export const CardList = styled.ul`
   /* flex-basis: 250px; */
   column-gap: 29px;
   row-gap: 50px;
+
+  @media screen and (min-width: ${desktopWide}) {
+    column-gap: 17px;
+  }
 `;
 
 export const LoadMoreButton = styled.button`

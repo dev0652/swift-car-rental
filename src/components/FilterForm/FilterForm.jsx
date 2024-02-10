@@ -43,8 +43,18 @@ export const FilterForm = ({ setSearchParams }) => {
   //   setTo('');
   // };
 
+  const handleSelectMake = (event) => {
+    // console.log('event: ', event);
+    console.log('event.value: ', event.value);
+
+    setMake(event.value);
+  };
+
+  const handleSelectPrice = (event) => setPrice(event.target.value);
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log({ make, price, from, to });
     setSearchParams({ make, price, from, to });
     // event.target.reset();
 
@@ -59,7 +69,7 @@ export const FilterForm = ({ setSearchParams }) => {
           <Label htmlFor="make">Make</Label>
           <ReactSelect
             name="make"
-            onChange={setMake}
+            onChange={handleSelectMake}
             data={sortedMakes}
             placeholder="Select or type"
             value={make}
@@ -70,7 +80,7 @@ export const FilterForm = ({ setSearchParams }) => {
           <Label htmlFor="price">Price cap</Label>
           <ReactSelect
             name="price"
-            onChange={setPrice}
+            onChange={handleSelectPrice}
             data={prices}
             placeholder="$"
             isSearchable={false}

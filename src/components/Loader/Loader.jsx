@@ -1,6 +1,5 @@
 import { ThreeDots } from 'react-loader-spinner';
 import { LoaderWrapper, Overlay } from './Loader.styled';
-import PropTypes from 'prop-types';
 
 import { theme } from 'styles/theme';
 
